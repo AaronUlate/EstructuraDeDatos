@@ -4,8 +4,19 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Clase principal del programa
+ * Se utiliza para ejecutar el programa
+ * Cuando se ejecuta el programa se carga el archivo del sistema y se inicia el programa
+ * Se valida el usuario y se ejecutan las operaciones del sistema
+ * Cuenta con un menu para ejecutar las operaciones del sistema
+ * Ademas de metodos estaticos para agregar tiquetes y atender tiquetes, validar usuario y crear el sistema
+ * Se espera realizar una mejor estilizacion del codigo en un futuro y mejores anotaciones sobre el funcionamiento del programa
+ */
+
 public class Main {
     public static void main(String[] args) {
+        //Se inica el programa cargando el archivo
         
             EcoColones ecoColones = EcoColones.load(Constants.FILENAME);
             while (ecoColones == null) {

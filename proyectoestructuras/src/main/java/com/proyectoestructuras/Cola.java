@@ -4,7 +4,15 @@ import java.io.Serializable;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que representa una cola
+ * Se utiliza para almacenar los tiquetes de los clientes
+ * Utiliza el nodo generico con un tipo de dato Tiquete
+ */
+
 public class Cola implements Serializable{
+
+    // Atributos de la clase
     private static int globalId;
     private int size = 0;
     private NodoGeneric<Tiquete> inicio;
@@ -12,14 +20,31 @@ public class Cola implements Serializable{
     private final int id;
     private final String colaName;
 
-
+    /**
+     * Constructor de la clase Cola
+     * @param colaName
+     * 
+     * Se inicia el inicio y el fin en null
+     * Se inicia el id con el globalId y se incrementa en 1
+     */
     public Cola(String colaName) {
         this.colaName = colaName;
         this.inicio = null;
         this.fin = null;
         this.id = globalId++;
     }
-
+    
+    /**
+     * Metodo para encolar un tiquete
+     * @param tiquete
+     * 
+     * Se crea un nuevo nodo con el tiquete
+     * Si la cola esta vacia se inicia el inicio y el fin con el nuevo nodo
+     * Si la cola no esta
+     * Se recorre la cola hasta encontrar el ultimo nodo y se conecta el nuevo nodo (esto es necesario porque al deserializar se pierde el fin)
+     * Se actualiza el fin con el nuevo nodo
+     * Se incrementa el tamaño de la cola y se muestra un mensaje con la posicion del tiquete en la cola 
+     */
     public void encolar(Tiquete tiquete) {
         NodoGeneric<Tiquete> nuevo = new NodoGeneric<>(tiquete);
         if (inicio == null) {
@@ -46,6 +71,15 @@ public class Cola implements Serializable{
         size++;
     }
     
+    /**
+     * Metodo para verificar la integridad de la cola
+     * 
+     * Si la cola esta vacia se actualiza el fin y el tamaño
+     * Si la cola no esta vacia
+     * Se recorre la cola contando los nodos y encontrando el ultimo nodo
+     * Se asegura que el fin apunte al ultimo nodo
+     * Se actualiza el tamaño real
+     */
     public void verificarIntegridad() {
         if (inicio == null) {
             fin = null;
@@ -65,6 +99,17 @@ public class Cola implements Serializable{
         size = contador;
 
     }
+
+    /**
+     * Metodo para desencolar un tiquete
+     * 
+     * Si la cola esta vacia se retorna null
+     * Si la cola no esta vacia
+     * Se obtiene el tiquete del inicio
+     * Se actualiza el inicio con el siguiente nodo
+     * Se decrementa el tamaño de la cola
+     * Se retorna el tiquete
+     */
     public Tiquete desencolar() {
         if (inicio == null) {
             return null;
@@ -77,6 +122,12 @@ public class Cola implements Serializable{
 
     }
 
+    /**
+     * Metodo para obtener el tiquete del inicio
+     * 
+     * Si el inicio es null se retorna null
+     * Si el inicio no es null se retorna el tiquete del inicio
+     */
     public Tiquete getInicio() {
         if (inicio == null) {
             return null;
@@ -85,15 +136,35 @@ public class Cola implements Serializable{
         }
     }
 
+    /**
+     * Metodo para obtener el tiquete del fin
+     * 
+     * Si el fin es null se retorna null
+     * Si el fin no es null se retorna el tiquete del fin
+     */
     public boolean estaVacia() {
         return inicio == null;
     }
 
+    /**
+     * Metodo para vaciar la cola
+     * 
+     * Se actualiza el inicio y el fin en null
+     */
     public void vaciar() {
         inicio = null;
         fin = null;
     }
 
+    /**
+     * Metodo para imprimir la cola
+     * 
+     * Se crea un nodo auxiliar que inicia en el inicio
+     * Mientras el nodo auxiliar no sea null
+     * Se imprime el tiquete del nodo auxiliar
+     * Se actualiza el nodo auxiliar con el siguiente nodo
+     * Se llama el metodo toString del tiquete
+     */
     public void imprimir() {
         NodoGeneric<Tiquete> aux = inicio;
         while (aux != null) {
@@ -102,6 +173,7 @@ public class Cola implements Serializable{
         }
     }
 
+    // Getters y Setters de los atributos de la clase
     public int getSize() {
         return size;
     }
