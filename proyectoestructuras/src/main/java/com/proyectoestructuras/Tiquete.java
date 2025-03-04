@@ -17,6 +17,18 @@ public class Tiquete implements Serializable{
     //TipoTramite es una enum que contiene el tipo de tramite que se va a realizar
     private Tramite TipoTramite;
 
+
+    /**
+     * Constructor de la clase Tiquete
+     * 
+     * @param cliente
+     * @param tipoTiquete
+     * @param TipoTramite
+     * 
+     * Se inicia el creadoA con la fecha y hora actual y 2 segundos
+     * Se inicia el atendidoA con null
+     * Se inicia el id con el globalID y se incrementa en 1
+     */
     public Tiquete(Cliente cliente, TipoTiquete tipoTiquete, Tramite TipoTramite) {
         this.cliente = cliente;
         this.tipoTiquete = tipoTiquete;
@@ -26,6 +38,10 @@ public class Tiquete implements Serializable{
         this.id = Tiquete.globalID++;
     }
 
+    /**
+     * Metodo toString de la clase Tiquete
+     * Se planea estilizar en un futuro
+     */
     @Override
     public String toString() {
         return "Tiquete{" +
@@ -38,9 +54,12 @@ public class Tiquete implements Serializable{
                 '}';
     }
 
+   //Getters y Setters        
     public static int getGlobalID() {
         return globalID;
     }
+
+    
 
     public static void setGlobalID(int globalID) {
         Tiquete.globalID = globalID;

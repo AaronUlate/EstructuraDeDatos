@@ -12,7 +12,17 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * Clase que representa el sistema EcoColones
+ * 
+ * Se utiliza para almacenar los datos del sistema y realizar las operaciones del sistema
+ * Esta clase utiliza el patron Singleton para que solo se pueda crear una instancia de la clase
+ */
+
 public class EcoColones implements Serializable{
+
+    // Atributos de la clase
+    //Cuenta con un atributo nombre, un atributo globalInstace, un atributo colaHandler (manejador de las colas del sistema) y un atributo colaUsuarios (cola de usuarios del sistema)
 
     private final String nombre;
     private static EcoColones globalInstace = null;
@@ -20,11 +30,23 @@ public class EcoColones implements Serializable{
     private ColaUsuarios colaUsuarios = new ColaUsuarios("Usuarios");
 
 
+    /**
+     * Constructor de la clase EcoColones
+     * @param nombre nombre del sistema
+     * 
+     * Se inicia el atributo nombre con el nombre del sistema
+     * Es privado para que solo se pueda crear una instancia de la clase
+     */
     private EcoColones(String nombre) {
         this.nombre = nombre;
 
     }
 
+    /**
+     * Metodo para obtener la instancia global de la clase EcoColones
+     * @param nombre nombre del sistema
+     * @return instancia global de la clase EcoColones
+     */
     public static EcoColones getInstance(String nombre) {
         if (globalInstace == null) {
             globalInstace = new EcoColones(nombre);
@@ -32,6 +54,13 @@ public class EcoColones implements Serializable{
         return globalInstace;
     }
 
+    /**
+     * Metodo para guardar el sistema en un archivo
+     * @param filename nombre del archivo
+     * @return instancia del sistema
+     * Se utiliza la libreria Gson para guardar el sistema en un archivo
+     * Se muestra un mensaje de error si no se puede guardar el archivo
+     */
     public EcoColones save(String filename){
         if (filename == null) {
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo");
@@ -45,6 +74,14 @@ public class EcoColones implements Serializable{
         }
         return this;
     }
+
+    /**
+     * Metodo para cargar el sistema de un archivo
+     * @param filename nombre del archivo
+     * @return instancia del sistema
+     * Se utiliza la libreria Gson para cargar el sistema de un archivo
+     * Se muestra un mensaje de error si no se puede cargar el archivo
+     */
 
     public static EcoColones load(String filename){
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
@@ -76,6 +113,13 @@ public class EcoColones implements Serializable{
         return ecoColones;
     }
 
+    /**
+     * Metodo para crear un usuario
+     * 
+     * Se solicita un correo y una contraseña para el usuario
+     * Si el correo o la contraseña son invalidos se muestra un mensaje de error
+     * Si el usuario se crea correctamente se encola en la cola de usuarios
+     */
     public void crearUsuario(){
         String correo = JOptionPane.showInputDialog("Ingrese un correo para su usuario");
         if(correo == null || correo.trim().isEmpty()){
@@ -91,6 +135,7 @@ public class EcoColones implements Serializable{
         this.getColaUsuarios().encolar(nuevoUsuario);
     }
 
+    // Getters y Setters de los atributos de la clase
     public String getNombre() {
         return nombre;
     }
