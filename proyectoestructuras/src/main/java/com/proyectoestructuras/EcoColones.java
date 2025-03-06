@@ -133,6 +133,7 @@ public class EcoColones implements Serializable{
         }
         Usuario nuevoUsuario = new Usuario(correo, contrasena);
         this.getColaUsuarios().encolar(nuevoUsuario);
+        JOptionPane.showMessageDialog(null, "Usuario registrado");
     }
 
     // Getters y Setters de los atributos de la clase
