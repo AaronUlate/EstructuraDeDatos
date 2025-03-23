@@ -1,8 +1,10 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.estructures;
 
 import java.io.Serializable;
 
 import javax.swing.JOptionPane;
+
+import com.proyectoestructuras.models.Tiquete;
 
 /**
  * Clase que representa una cola

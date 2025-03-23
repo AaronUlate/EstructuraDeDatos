@@ -1,6 +1,8 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.estructures;
 
 import java.io.Serializable;
+
+import com.proyectoestructuras.models.Usuario;
 /**
  * Clase que representa una cola de usuarios
  * Se utiliza para almacenar los datos de los usuarios del sistema

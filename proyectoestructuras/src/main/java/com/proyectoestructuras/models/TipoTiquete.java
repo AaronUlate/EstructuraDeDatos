@@ -1,4 +1,4 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.models;
 /**
  * Enumeración que contiene los tipos de tiquetes que se pueden crear
  * Existen 3 tipos de tiquetes, se utilizan para asignar prioridades a los tiquetes y enviarlos a las colas correspondientes

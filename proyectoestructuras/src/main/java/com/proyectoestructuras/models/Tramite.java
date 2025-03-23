@@ -1,4 +1,4 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.models;
 
 /**
  * Enumeración de los tipos de trámites que se pueden realizar en el banco

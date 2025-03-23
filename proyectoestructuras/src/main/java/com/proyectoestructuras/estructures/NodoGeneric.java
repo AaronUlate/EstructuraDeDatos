@@ -1,4 +1,4 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.estructures;
 
 import java.io.Serializable;
 

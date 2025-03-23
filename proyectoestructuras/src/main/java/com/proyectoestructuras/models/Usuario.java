@@ -1,4 +1,4 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.models;
 
 /***
  * Clase que representa un unsuario en el sistema EcoColones

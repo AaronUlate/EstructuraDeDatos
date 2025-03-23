@@ -1,4 +1,4 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.controllers;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,6 +11,12 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.proyectoestructuras.LocalDateTimeAdapter;
+import com.proyectoestructuras.estructures.Cola;
+import com.proyectoestructuras.estructures.ColaGenerales;
+import com.proyectoestructuras.estructures.ColaUsuarios;
+import com.proyectoestructuras.estructures.NodoGeneric;
+import com.proyectoestructuras.models.Usuario;
 
 /**
  * Clase que representa el sistema EcoColones

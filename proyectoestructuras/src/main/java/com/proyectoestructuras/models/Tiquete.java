@@ -1,4 +1,4 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

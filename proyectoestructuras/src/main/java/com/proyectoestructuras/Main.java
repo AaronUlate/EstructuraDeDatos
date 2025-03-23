@@ -4,6 +4,17 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+import com.proyectoestructuras.controllers.EcoColones;
+import com.proyectoestructuras.estructures.Cola;
+import com.proyectoestructuras.estructures.ColaGenerales;
+import com.proyectoestructuras.estructures.ColaUsuarios;
+import com.proyectoestructuras.estructures.NodoGeneric;
+import com.proyectoestructuras.models.Cliente;
+import com.proyectoestructuras.models.TipoTiquete;
+import com.proyectoestructuras.models.Tiquete;
+import com.proyectoestructuras.models.Tramite;
+import com.proyectoestructuras.models.Usuario;
+
 /**
  * Clase principal del programa
  * Se utiliza para ejecutar el programa
