@@ -2,6 +2,7 @@ package com.proyectoestructuras.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Tiquete implements Serializable{
     private static int globalID = 0;
@@ -9,9 +10,9 @@ public class Tiquete implements Serializable{
     //La clase cliente contiene los datos del cliente
     private Cliente cliente;
     //CreadoA es una clase que contiene la fecha y hora en la que se crea el tiquete
-    private final LocalDateTime creadoA;
+    private final String creadoA;
     //AtendidoA es una clase que contiene la fecha y hora en la que se atendio el tiquete
-    private LocalDateTime atendidoA;
+    private String atendidoA;
     //TipoTiquete es una enum que contiene el tipo de tiquete que se va a crear
     private final TipoTiquete tipoTiquete;
     //TipoTramite es una enum que contiene el tipo de tramite que se va a realizar
@@ -33,9 +34,13 @@ public class Tiquete implements Serializable{
         this.cliente = cliente;
         this.tipoTiquete = tipoTiquete;
         this.TipoTramite = TipoTramite;
-        this.creadoA = LocalDateTime.now().withSecond(2).withNano(0);
-        this.atendidoA = null;
+        this.atendidoA = "N.A.";
         this.id = Tiquete.globalID++;
+
+        //formateador de la fecha y hora para una mejor visualizacion
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.creadoA = LocalDateTime.now().format(formateador);
+
     }
 
     /**
@@ -44,14 +49,11 @@ public class Tiquete implements Serializable{
      */
     @Override
     public String toString() {
-        return "Tiquete{" +
-                "id=" + id +
-                ", cliente=" + cliente +
-                ", creadoA=" + creadoA +
-                ", atendidoA=" + atendidoA +
-                ", tipoTiquete=" + tipoTiquete +
-                ", TipoTramite=" + TipoTramite +
-                '}';
+        if(atendidoA != null){
+            return "Tiquete de tipo: " + tipoTiquete + ", creado a las: " + creadoA + ", atendido a: " + atendidoA + ", cliente: " + cliente;
+        }
+        return "Tiquete de tipo: " + tipoTiquete + ", creado a: " + creadoA + ", cliente: " + cliente;
+        
     }
 
    //Getters y Setters        
@@ -59,6 +61,9 @@ public class Tiquete implements Serializable{
         return globalID;
     }
 
+    public boolean esEmergencia() {
+        return this.TipoTramite == Tramite.EMERGENCIA_EJECUTIVO;
+    }
     
 
     public static void setGlobalID(int globalID) {
@@ -77,15 +82,14 @@ public class Tiquete implements Serializable{
         this.cliente = cliente;
     }
 
-    public LocalDateTime getCreadoA() {
+    public String getCreadoA() {
         return creadoA;
     }
 
-    public LocalDateTime getAtendidoA() {
+    public String getAtendidoA() {
         return atendidoA;
     }
-
-    public void setAtendidoA(LocalDateTime atendidoA) {
+    public void setAtendidoA(String atendidoA) {
         this.atendidoA = atendidoA;
     }
 

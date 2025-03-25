@@ -56,11 +56,7 @@ public class Cliente implements Serializable{
     // Metodo toString de la clase Cliente se espera estilizar en un futuro
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", Edad='" + Edad + '\'' +
-                '}';
+        return "Cliente con id: " + id + ", nombre: " + nombre + ", edad: " + Edad;
     }
     
 

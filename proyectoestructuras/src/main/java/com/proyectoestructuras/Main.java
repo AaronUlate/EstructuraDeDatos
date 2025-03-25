@@ -1,6 +1,7 @@
 package com.proyectoestructuras;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,7 @@ import com.proyectoestructuras.estructures.NodoGeneric;
 import com.proyectoestructuras.models.Cliente;
 import com.proyectoestructuras.models.TipoTiquete;
 import com.proyectoestructuras.models.Tiquete;
+import com.proyectoestructuras.models.TiqueteAtentido;
 import com.proyectoestructuras.models.Tramite;
 import com.proyectoestructuras.models.Usuario;
 
@@ -143,7 +145,17 @@ public class Main {
             return;
         }
 
-        String tramiteStr = JOptionPane.showInputDialog("Ingrese el tipo de trámite\n1. Depósitos bancarios\n2. Retiros bancarios\n3. Cambio de divisas\n4. Pago de servicios");
+        String tramiteStr = JOptionPane.showInputDialog(
+            "Ingrese el tipo de trámite\n" +
+            "1. Depósitos bancarios\n" +
+            "2. Cambio de monedas\n" + 
+            "3. Cambio de divisas\n" +
+            "4. Cancelaciones\n" +
+            "5. Planes ecológicos\n" +
+            "6. Emergencia ejecutivo\n" +
+            "7. Retiros bancarios\n" +
+            "8. Pago de servicios"
+        );
         if (tramiteStr == null || tramiteStr.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Operación cancelada o tipo de trámite vacío", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -157,18 +169,22 @@ public class Main {
         }
 
         Tiquete tiquete = new Tiquete(cliente, tipoTiquete, tramite);
+        Cola cola = null;
         if (tipoTiquete == TipoTiquete.PREFERENCIAL) {
             ecoColones.getColaHandler().getColaPreferencial().encolar(tiquete);
+            cola = ecoColones.getColaHandler().getColaPreferencial();
         } else if (tipoTiquete == TipoTiquete.UN_TRAMITE) {
             ecoColones.getColaHandler().getColaRapida().encolar(tiquete);
+            cola = ecoColones.getColaHandler().getColaRapida();
         } else {
-            Cola cola = ecoColones.getColaHandler().colaGeneralMasDisponible();
+            cola = ecoColones.getColaHandler().colaGeneralMasDisponible();
             if (cola != null) {
                 cola.encolar(tiquete);
             } else {
                 JOptionPane.showMessageDialog(null, "No hay ventanillas disponibles", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        
     }
 
     private static void atenderTiquete(EcoColones ecoColones) {
@@ -188,6 +204,7 @@ public class Main {
         try {
             int opcion = Integer.parseInt(input);
             Cola cola;
+            Tiquete tiquete = null;
             if (opcion == 1) {
                 cola = colaPrefencial;
             } else if (opcion == 2) {
@@ -196,10 +213,16 @@ public class Main {
                 cola = ecoColones.getColaHandler().getColasGenerales().get(opcion - 3);
             }
             if (cola != null) {
-                Tiquete tiquete = cola.desencolar();
-                tiquete.setAtendidoA(LocalDateTime.now().withSecond(2).withNano(0));
+                tiquete = cola.desencolar();
+                DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                tiquete.setAtendidoA(LocalDateTime.now().format(formateador));
                 JOptionPane.showMessageDialog(null, "Tiquete atendido:\n" + tiquete);
             }
+            if(cola!= null){
+                TiqueteAtentido tiqueteAtentido = new TiqueteAtentido(tiquete, cola.getColaName(), tiquete.getAtendidoA());
+                ecoColones.getTiqueteAtentidoJson().agregarTiquete(tiqueteAtentido);
+            }
+        
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Opción inválida, ingrese un valor numerico valido", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
