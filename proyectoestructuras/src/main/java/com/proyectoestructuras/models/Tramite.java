@@ -11,8 +11,12 @@ public enum Tramite {
 
 
     DEPOSITOS("Depósitos bancarios"),
-    RETIROS("Retiros bancarios"),
+    MONEDAS("CAMBIO DE MONEDAS"),
     CAMBIO_DE_DIVISAS("Cambio de divisas"),
+    CANCELACIONES("Cancelaciones"),
+    PLANES_ECOLOGICOS("Planes ecológicos"),
+    EMERGENCIA_EJECUTIVO("Emergencia ejecutivo"),
+    RETIROS("Retiros bancarios"),
     SERVICIOS("Pago de servicios");
 
     // Almacena la descripción detallada del tipo de trámite
