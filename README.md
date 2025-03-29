@@ -10,7 +10,7 @@
 #Moodulo 1.1: Se hace entrega de todos los puntos solicitados.
 #Moodulo 1.2: Se hace entrega de de los puntos 1,2,3,4 y 5.
 
-#Moodulo 1.3: Se hace entrega de todos los puntos solicitados.
+#Modulo 1.3: Se hace entrega de todos los puntos solicitados.
 
 #De momento para correr el programa no se necesita nada especial simplemente, hacer el clean install del mvn para descargar la dependecia de GSON
 #Esperamos mejorar las notas a medida que avancemos en el proyecto
