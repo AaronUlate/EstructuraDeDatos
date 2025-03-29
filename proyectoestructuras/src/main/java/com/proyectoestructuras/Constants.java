@@ -12,5 +12,6 @@ public class Constants implements Serializable{
     // Constantes de la clase
     
     public static final String FILENAME = "EcoColones.json";
+    public static final String TIQUETES = "atendidos.json";
 
 }

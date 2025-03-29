@@ -1,16 +1,21 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.controllers;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.proyectoestructuras.Constants;
+import com.proyectoestructuras.estructures.Cola;
+import com.proyectoestructuras.estructures.ColaGenerales;
+import com.proyectoestructuras.estructures.ColaUsuarios;
+import com.proyectoestructuras.estructures.NodoGeneric;
+import com.proyectoestructuras.models.Usuario;
 
 /**
  * Clase que representa el sistema EcoColones
@@ -28,6 +33,7 @@ public class EcoColones implements Serializable{
     private static EcoColones globalInstace = null;
     private final ColaHandler colaHandler = ColaHandler.getInstance();
     private ColaUsuarios colaUsuarios = new ColaUsuarios("Usuarios");
+    private TiqueteAtentidoJson tiqueteAtentidoJson = TiqueteAtentidoJson.getInstance();
 
 
     /**
@@ -66,12 +72,16 @@ public class EcoColones implements Serializable{
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo");
             return this;
         }
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+
+        Gson gson = new GsonBuilder().create();
         try(FileWriter writer = new FileWriter(filename)){
             gson.toJson(this, writer);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo"+ e.getMessage());
         }
+
+        this.tiqueteAtentidoJson.save(Constants.TIQUETES);
+
         return this;
     }
 
@@ -84,7 +94,8 @@ public class EcoColones implements Serializable{
      */
 
     public static EcoColones load(String filename){
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+        //Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+        Gson gson = new GsonBuilder().create();
         EcoColones ecoColones = null;
         try(FileReader reader = new FileReader(filename)){
             ecoColones = gson.fromJson(reader, EcoColones.class);
@@ -103,12 +114,14 @@ public class EcoColones implements Serializable{
                 actual.getDato().verificarIntegridad();
                 actual = actual.getSiguiente();
             }
-            
-
         } catch (FileNotFoundException e) {
             return null;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar el archivo"+ e.getMessage());
+        }
+        TiqueteAtentidoJson tiquetesAtendidos = TiqueteAtentidoJson.load(Constants.TIQUETES);
+        if(ecoColones != null){
+            ecoColones.setTiqueteAtentidoJson(tiquetesAtendidos);
         }
         return ecoColones;
     }
@@ -162,6 +175,14 @@ public class EcoColones implements Serializable{
 
     public void agregarUsuario(Usuario usuario){
         colaUsuarios.encolar(usuario);
+    }
+
+    public TiqueteAtentidoJson getTiqueteAtentidoJson() {
+        return tiqueteAtentidoJson;
+    }
+
+    public void setTiqueteAtentidoJson(TiqueteAtentidoJson tiqueteAtentidoJson) {
+        this.tiqueteAtentidoJson = tiqueteAtentidoJson;
     }
 
 

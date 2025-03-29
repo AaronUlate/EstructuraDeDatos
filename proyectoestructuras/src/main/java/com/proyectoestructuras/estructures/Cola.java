@@ -1,8 +1,10 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.estructures;
 
 import java.io.Serializable;
 
 import javax.swing.JOptionPane;
+
+import com.proyectoestructuras.models.Tiquete;
 
 /**
  * Clase que representa una cola
@@ -47,6 +49,19 @@ public class Cola implements Serializable{
      */
     public void encolar(Tiquete tiquete) {
         NodoGeneric<Tiquete> nuevo = new NodoGeneric<>(tiquete);
+        //revisar si el tiquete es de tipo emergencia ejecutiva
+        if(tiquete.esEmergencia()){
+            if(this.estaVacia()){
+                inicio = nuevo;
+                fin = nuevo;
+            }else{
+                nuevo.setSiguiente(inicio);
+                inicio = nuevo;
+            }
+            JOptionPane.showMessageDialog(null, "¡EMERGENCIA EJECUTIVA! Tiquete colocado al inicio de la cola " + getColaName());
+            size++;
+            return;
+        }
         if (inicio == null) {
             inicio = nuevo;
             fin = nuevo;

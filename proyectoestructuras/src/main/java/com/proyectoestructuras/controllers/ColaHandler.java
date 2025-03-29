@@ -1,6 +1,9 @@
-package com.proyectoestructuras;
+package com.proyectoestructuras.controllers;
 
 import java.io.Serializable;
+
+import com.proyectoestructuras.estructures.Cola;
+import com.proyectoestructuras.estructures.ColaGenerales;
 
 /**
  * Clase que maneja las colas del programa
