@@ -68,7 +68,7 @@ public class Main {
             }
             int opcion = 0;
             do {
-                String input = JOptionPane.showInputDialog("1. Crear tiquete\n2. Atender tiquete\n3. Mostrar tiquetes\n4. Agregar nuevo usuario\n5. Guardar y salir");
+                String input = JOptionPane.showInputDialog("1. Crear tiquete\n2. Atender tiquete\n3. Agregar nuevo usuario\n4. Guardar y salir");
 
                 if (input == null) {
                     break;
@@ -95,17 +95,14 @@ public class Main {
                         ecoColones.save(Constants.FILENAME);
                         break;
                     case 3:
-                        // ecoColones.getColaHandler().mostrarTiquetes();
-                        break;
-                    case 4:
                         ecoColones.crearUsuario();
                         ecoColones.save(Constants.FILENAME);
                         break;
-                    case 5:
+                    case 4:
                         ecoColones.save(Constants.FILENAME);
                         break;
                 }
-            } while (opcion != 5);
+            } while (opcion != 4);
             JOptionPane.showMessageDialog(null, "Gracias por utilizar EcoColones", "Hasta luego", JOptionPane.INFORMATION_MESSAGE);
     
     }
