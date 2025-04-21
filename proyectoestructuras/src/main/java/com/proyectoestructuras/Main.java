@@ -1,5 +1,6 @@
 package com.proyectoestructuras;
 
+import com.proyectoestructuras.servicio.ServBCCR;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,6 +17,8 @@ import com.proyectoestructuras.models.Tiquete;
 import com.proyectoestructuras.models.TiqueteAtentido;
 import com.proyectoestructuras.models.Tramite;
 import com.proyectoestructuras.models.Usuario;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * Clase principal del programa
@@ -68,7 +71,7 @@ public class Main {
             }
             int opcion = 0;
             do {
-                String input = JOptionPane.showInputDialog("1. Crear tiquete\n2. Atender tiquete\n3. Agregar nuevo usuario\n4. Guardar y salir");
+                String input = JOptionPane.showInputDialog("1. Crear tiquete\n2. Atender tiquete\n3. Agregar nuevo usuario\n4. Consultar tipo de cambio\n5. Guardar y salir");
 
                 if (input == null) {
                     break;
@@ -99,10 +102,13 @@ public class Main {
                         ecoColones.save(Constants.FILENAME);
                         break;
                     case 4:
+                        consultarTipoDeCambio();
+                        break;
+                    case 5:
                         ecoColones.save(Constants.FILENAME);
                         break;
                 }
-            } while (opcion != 4);
+            } while (opcion != 5);
             JOptionPane.showMessageDialog(null, "Gracias por utilizar EcoColones", "Hasta luego", JOptionPane.INFORMATION_MESSAGE);
     
     }
@@ -317,5 +323,28 @@ public class Main {
         ecoColones.getColaUsuarios().encolar(usuario);
         ecoColones.save(Constants.FILENAME);
         return ecoColones;
+    }
+
+    public static void consultarTipoDeCambio() {
+        try {
+            ServBCCR bccr = new ServBCCR();
+            LocalDate hoy = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fechaActual = hoy.format(formatter);
+            String correoBCCR = "guille17me@gmail.com";
+            String token = "11M54M0S1L";
+            String nombreBCCR = "Guillermo Francisco Sanabria Picado";
+            BigDecimal tipoCambioCompra = bccr.obtenerTipoCambio("317", fechaActual, nombreBCCR, correoBCCR, token);
+            BigDecimal tipoCambioVenta = bccr.obtenerTipoCambio("318", fechaActual, nombreBCCR, correoBCCR, token);
+
+            JOptionPane.showMessageDialog(null,
+                    "Tipo de cambio del dolar hoy (" + fechaActual + "):\n" +
+                            "Compra: " + tipoCambioCompra + "\n" +
+                            "Venta: " + tipoCambioVenta,
+                    "Tipo de Cambio", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el tipo de cambio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
