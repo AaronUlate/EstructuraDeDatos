@@ -1,6 +1,6 @@
 # EstructuraDeDatos
 
-#Integrantes 
+#Integrantes
 #Jafet Barquero Solano, David Cespedes Camacho, Guillermo Sanabria Picado, Aaron Ulate Vega
 
 
@@ -28,5 +28,15 @@ Link de video en YouTube primer avance: https://youtu.be/7cZTePmMo6Y
 
 Link del video de YouTube segundo avance: https://youtu.be/z5qMfGrgMEw
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#Tercer avance:
 
+#Moodulo 1.0: Se hace entrega de todos los puntos solicitados.
+#Moodulo 1.1: Se hace entrega de todos los puntos solicitados.
+#Moodulo 1.2: Se hace entrega de todos los puntos solicitados.
+#Modulo 1.3: Se hace entrega de todos los puntos solicitados.
+#Modulo 1.4: No se logró completar y no es funcional.
+#Modulo 1.5: Se hace entrega de todos los puntos solicitados.
+
+Link del video de YouTube tercer avance: https://youtu.be/OadwdjtZryI
